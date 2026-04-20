@@ -1,0 +1,323 @@
+@import "katex/dist/katex.min.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Academic TOPSIS Analysis Design System */
+
+@layer base {
+  :root {
+    /* Academic color palette - Professional navy blues with teal accents */
+    --background: 210 20% 98%;
+    --foreground: 220 30% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 30% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 30% 15%;
+
+    /* Primary: Deep academic navy */
+    --primary: 220 60% 25%;
+    --primary-foreground: 210 20% 98%;
+
+    /* Secondary: Soft slate for UI elements */
+    --secondary: 215 25% 92%;
+    --secondary-foreground: 220 30% 25%;
+
+    /* Muted: Subtle backgrounds */
+    --muted: 215 20% 95%;
+    --muted-foreground: 215 15% 45%;
+
+    /* Accent: Scientific teal */
+    --accent: 185 60% 40%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 65% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 215 25% 88%;
+    --input: 215 25% 88%;
+    --ring: 185 60% 40%;
+
+    --radius: 0.5rem;
+
+    /* Custom tokens for TOPSIS */
+    --benefit: 160 60% 40%;
+    --benefit-foreground: 0 0% 100%;
+    --cost: 25 85% 55%;
+    --cost-foreground: 0 0% 100%;
+    
+    --ideal-positive: 160 65% 45%;
+    --ideal-negative: 0 65% 50%;
+    
+    --ranking-gold: 45 90% 50%;
+    --ranking-silver: 220 10% 65%;
+    --ranking-bronze: 25 60% 50%;
+
+    --formula-bg: 220 30% 97%;
+    --formula-border: 215 25% 85%;
+
+    --table-header: 220 40% 20%;
+    --table-header-foreground: 210 20% 98%;
+    --table-row-alt: 215 20% 97%;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 220 25% 10%;
+    --foreground: 210 20% 95%;
+
+    --card: 220 25% 14%;
+    --card-foreground: 210 20% 95%;
+
+    --popover: 220 25% 14%;
+    --popover-foreground: 210 20% 95%;
+
+    --primary: 185 60% 50%;
+    --primary-foreground: 220 25% 10%;
+
+    --secondary: 220 20% 20%;
+    --secondary-foreground: 210 20% 90%;
+
+    --muted: 220 20% 18%;
+    --muted-foreground: 215 15% 60%;
+
+    --accent: 185 60% 45%;
+    --accent-foreground: 220 25% 10%;
+
+    --destructive: 0 60% 45%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 20% 22%;
+    --input: 220 20% 22%;
+    --ring: 185 60% 50%;
+
+    --formula-bg: 220 25% 16%;
+    --formula-border: 220 20% 25%;
+
+    --table-header: 220 30% 18%;
+    --table-header-foreground: 210 20% 95%;
+    --table-row-alt: 220 25% 12%;
+
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold tracking-tight;
+  }
+}
+
+@layer components {
+  /* Formula display styling */
+  .formula-block {
+    @apply bg-formula-bg border border-formula-border rounded-lg p-4 my-4 overflow-x-auto;
+  }
+
+  .formula-inline {
+    @apply bg-formula-bg px-2 py-0.5 rounded text-sm;
+  }
+
+  /* Academic table styling */
+  .academic-table {
+    @apply w-full border-collapse text-sm;
+  }
+
+  .academic-table thead {
+    @apply bg-table-header text-table-header-foreground;
+  }
+
+  .academic-table th {
+    @apply px-4 py-3 text-left font-semibold border-b-2 border-border;
+  }
+
+  .academic-table td {
+    @apply px-4 py-3 border-b border-border;
+  }
+
+  .academic-table tbody tr:nth-child(even) {
+    @apply bg-table-row-alt;
+  }
+
+  .academic-table tbody tr:hover {
+    @apply bg-muted/50;
+  }
+
+  /* Step indicator */
+  .step-indicator {
+    @apply flex items-center justify-center w-8 h-8 rounded-full bg-primary text-primary-foreground font-bold text-sm;
+  }
+
+  .step-indicator.completed {
+    background-color: hsl(var(--benefit));
+    color: hsl(var(--benefit-foreground));
+  }
+
+  .step-indicator.active {
+    @apply bg-accent text-accent-foreground ring-4 ring-accent/30;
+  }
+
+  /* Criterion type badges */
+  .criterion-benefit {
+    @apply inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium bg-benefit/15 text-benefit;
+  }
+
+  .criterion-cost {
+    @apply inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium bg-cost/15 text-cost;
+  }
+
+  /* Ranking medals */
+  .ranking-1 {
+    @apply bg-ranking-gold text-foreground;
+  }
+
+  .ranking-2 {
+    @apply bg-ranking-silver text-foreground;
+  }
+
+  .ranking-3 {
+    background-color: hsl(var(--ranking-bronze));
+    color: white;
+  }
+
+  /* Card variants */
+  .academic-card {
+    @apply bg-card border border-border rounded-xl shadow-sm;
+  }
+
+  .academic-card-header {
+    @apply px-6 py-4 border-b border-border bg-muted/30;
+  }
+
+  .academic-card-body {
+    @apply p-6;
+  }
+
+  /* Upload area */
+  .upload-zone {
+    @apply border-2 border-dashed border-border rounded-xl p-8 text-center transition-all duration-200 cursor-pointer;
+  }
+
+  .upload-zone:hover {
+    @apply border-accent bg-accent/5;
+  }
+
+  .upload-zone.active {
+    @apply border-accent bg-accent/10;
+  }
+
+  /* Methodology legend */
+  .methodology-box {
+    @apply bg-primary/5 border-l-4 border-primary rounded-r-lg p-4;
+  }
+}
+
+@layer utilities {
+  .bg-formula-bg {
+    background-color: hsl(var(--formula-bg));
+  }
+
+  .border-formula-border {
+    border-color: hsl(var(--formula-border));
+  }
+
+  .bg-table-header {
+    background-color: hsl(var(--table-header));
+  }
+
+  .text-table-header-foreground {
+    color: hsl(var(--table-header-foreground));
+  }
+
+  .bg-table-row-alt {
+    background-color: hsl(var(--table-row-alt));
+  }
+
+  .bg-benefit {
+    background-color: hsl(var(--benefit));
+  }
+
+  .text-benefit {
+    color: hsl(var(--benefit));
+  }
+
+  .bg-cost {
+    background-color: hsl(var(--cost));
+  }
+
+  .text-cost {
+    color: hsl(var(--cost));
+  }
+
+  .bg-ideal-positive {
+    background-color: hsl(var(--ideal-positive));
+  }
+
+  .bg-ideal-negative {
+    background-color: hsl(var(--ideal-negative));
+  }
+
+  .bg-ranking-gold {
+    background-color: hsl(var(--ranking-gold));
+  }
+
+  .bg-ranking-silver {
+    background-color: hsl(var(--ranking-silver));
+  }
+
+  .bg-ranking-bronze {
+    background-color: hsl(var(--ranking-bronze));
+  }
+
+  /* Animation utilities */
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-out;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.4s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes slideUp {
+    from { 
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to { 
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
